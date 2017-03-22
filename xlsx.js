@@ -1,5 +1,7 @@
 "use strict";
+
 var XLSX = require('xlsx');
+
 class Xlsx {
     constructor(map, source, path) {
         this.map = map;
@@ -25,17 +27,29 @@ class Xlsx {
             return nObj;
         });
     }
-    writeHeader(headers) {
+
+    /**
+     * 得到符合 xlsx 格式的 header 数据
+     */
+    writeHeader(headers) {  
         return headers
             .map((v, i) => Object.assign({}, { v: v, position: String.fromCharCode(65 + i) + 1 }))
             .reduce((prev, next) => Object.assign({}, prev, { [next.position]: { v: next.v } }), {});
     }
+
+    /**
+     * 得到符合 xlsx 格式的 content 数据
+     */
     writeContent(content) {
         return content
             .map((v, i) => this._headers.map((k, j) => Object.assign({}, { v: v[k], position: String.fromCharCode(65 + j) + (i + 2) })))
             .reduce((prev, next) => prev.concat(next))
             .reduce((prev, next) => Object.assign({}, prev, { [next.position]: { v: next.v } }), {});
     }
+
+    /**
+     * 导出xlsx
+     */
     outputXlsx() {
         let headers = this.writeHeader(this._headers);
         let data = this.writeContent(this._data);
@@ -51,4 +65,5 @@ class Xlsx {
         return XLSX.writeFile(workbook, `${this.path}.xlsx`);
     }
 }
+
 exports.Xlsx = Xlsx;
