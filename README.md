@@ -31,6 +31,6 @@ var data = [
     }
 ];
 
-var a = new xlsx.Xlsx(headerMap, __data, './out');
+var a = new xlsx.Xlsx(headerMap, data, './out');
 a.outputXlsx();
 ```
