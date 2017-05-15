@@ -1,5 +1,8 @@
 var XLSX = require('xlsx');
-var workbook = XLSX.readFile('test.xlsx');
+var workbook = XLSX.readFile('test.xlsx', {
+    cellStyles: true,
+    cellDates: true
+});
 var sheetNames = workbook.SheetNames;
 var workSheet = workbook.Sheets[sheetNames[0]];
 var data = XLSX.utils.sheet_to_json(workSheet);
@@ -21,4 +24,6 @@ var data = XLSX.utils.sheet_to_json(workSheet);
 // }));
 
 console.log(sheetNames);
-console.log(workSheet['!merges']);
+console.log(workSheet);
+
+// XLSX.writeFile(workbook, 'write.xlsx');
