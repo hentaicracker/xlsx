@@ -9,6 +9,7 @@
   "author": "hentaicracker <jasonchen23333@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "node-excel-export": "^1.4.1",
     "node-xlsx": "^0.7.4",
     "xlsx": "^0.9.4"
   }
